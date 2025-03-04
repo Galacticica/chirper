@@ -1,3 +1,7 @@
 from django.db import models
+"from ___ import user"
 
-# Create your models here.
+class Chirp(models.Model):
+    user = user
+    content = models.CharField(max_length=250)
+    reply = models.CharField(primary_key=True)
