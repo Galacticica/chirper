@@ -1,24 +1,37 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-<head class="bg-[#e8e5e4] content-center text-bold text-[#7a0204] outline-solid-15-[#54027a] rounded-md">
+{% block extra_head %}
+<head>
+    <div class="flex justify-center items-center bg-[#e8e5e4] font-bold text-[#7a0204] outline-2 outline-[#54027a] rounded-md">
     Chirper
+    </div>
 </head>
+{% endblock extra_head %}
 
-<body class="content-center outline-solid-10-[#54027a] rounded-md">
-    {% block content %}
+{% block content %}
 
-    <form method="post" action="{chirp}">
-        {% csrf-token %}
+<body class="flex justify-center items-center outline-solid-10-[#54027a] rounded-md">
+    
+
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ chirp_form.as_p }}
         <button type="submit" class="bg-[#7a0204]">Post a Chirp</button>
     </form>
 
     {% for chirp in chirps %}
-
-    <form method="post" action="{reply}" class="place-content-end">
-        {% csrf-token %}
-        <button type="submit" class="bg-[#54027a] text-center">Reply</button>
-    </form>
+    <div>
+        <h2>{{ chirp.content }}</h2>
+        <p>Likes: {{ chirp.likes }}</p>
+        <form method="post" action="">
+            {% csrf_token %}
+            <input type="hidden" name="chirp_id" value="{{ chirp.id }}">
+            <button type="submit" class="bg-[#7a0204] text-[#e8e5e4]">Give egg</button>
+        </form>
+    </div>
+    
 
     {% endfor %}
-    {% endblock content %}
+    
 </body>
+{% endblock content %}

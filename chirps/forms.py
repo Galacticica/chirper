@@ -5,11 +5,14 @@ class ChirpForm(forms.ModelForm):
     content = forms.CharField(
         label='',
         max_length=255,
-        widget=forms.Textarea(attrs={'placeholder': 'Write a new chirp...'}
-    ))
+        widget=forms.Textarea(attrs={'placeholder': 'Write a new chirp...'})
+        )
 
     class Meta:
         model = Chirp
         fields = ['content']
 
-    
+class LikeForm(forms.Form):
+    chirp_id = forms.IntegerField(widget=forms.HiddenInput())
+
+
