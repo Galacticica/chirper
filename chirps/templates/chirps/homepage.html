@@ -6,7 +6,18 @@
 
 <body class="content-center outline-solid-10-[#54027a] rounded-md">
     {% block content %}
+
+    <form method="post" action="{chirp}">
+        {% csrf-token %}
+        <button type="submit" class="bg-[#7a0204]">Post a Chirp</button>
+    </form>
+
     {% for chirp in chirps %}
+
+    <form method="post" action="{reply}" class="place-content-end">
+        {% csrf-token %}
+        <button type="submit" class="bg-[#54027a] text-center">Reply</button>
+    </form>
 
     {% endfor %}
     {% endblock content %}
