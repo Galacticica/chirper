@@ -33,7 +33,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "login",
     "chirps",
-    "replies",
     "django_browser_reload",
     "django.contrib.admin",
     "django.contrib.auth",

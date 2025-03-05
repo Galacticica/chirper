@@ -1,13 +1,17 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
 from .models import Chirp
+from .forms import ChirpForm
 
-class HomeView(ListView):
-    model = Chirp
-    template_name = "chirps/homepage.html"
-    context_object_name = "chirps"
-    ordering = ["-created_at"]
+
+def HomeView(request):
+    template = 'chirps/homepage.html'
+    chirps = Chirp.objects.order_by('-created_at')
+    chirp_form = ChirpForm()
+    context = {
+        'chirps': chirps,
+        'form': chirp_form
+    }
+    return HttpResponse(template.render(context, request))
 
 
