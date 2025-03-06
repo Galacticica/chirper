@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block extra_head %}
+
 <head>
-    <div class="flex justify-center items-center bg-[#e8e5e4] font-bold text-[#7a0204] outline-2 outline-[#54027a] rounded-md">
-    Chirper
+    <div
+        class="flex justify-center items-center bg-[#e8e5e4] font-bold text-[#7a0204] outline-2 outline-[#54027a] rounded-md">
+        Chirper
     </div>
 </head>
 {% endblock extra_head %}
@@ -13,7 +15,7 @@
 <body class="flex justify-center items-center outline-solid-10-[#54027a] rounded-md">
 
 
-    
+
 
     <form method="post" action="">
         {% csrf_token %}
