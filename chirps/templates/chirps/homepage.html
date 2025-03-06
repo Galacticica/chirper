@@ -11,17 +11,20 @@
 {% block content %}
 
 <body class="flex justify-center items-center outline-solid-10-[#54027a] rounded-md">
+
+
     
 
     <form method="post" action="">
         {% csrf_token %}
         {{ chirp_form.as_p }}
-        <button type="submit" class="bg-[#7a0204] text-[#e8e5e4]">Post a Chirp</button>
+        <button type="submit" class="bg-[#7a] text-[#e8e5e40204] text-[#e8e5e4]">Post a Chirp</button>
     </form>
 
     {% for chirp in chirps %}
     <div>
-        <h2>{{ chirp.content }}</h2>
+        <h2><a href="{% url 'chirp_detail' chirp.id %}">{{ chirp.content }}</a></h2>
+        <h3>{{chirp.user}} at {{chirp.created_at}}</h3>
         <p>Likes: {{ chirp.likes }}</p>
         <form method="post" action="">
             {% csrf_token %}
@@ -29,8 +32,9 @@
             <button type="submit" class="bg-[#7a0204] text-[#e8e5e4]">Give egg</button>
         </form>
     </div>
-    
+
+
     {% endfor %}
-    
+
 </body>
 {% endblock content %}
