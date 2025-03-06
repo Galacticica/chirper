@@ -14,9 +14,6 @@
 
 <body class="flex justify-center items-center outline-solid-10-[#54027a] rounded-md">
 
-
-
-
     <form method="post" action="">
         {% csrf_token %}
         {{ chirp_form.as_p }}
@@ -27,7 +24,7 @@
     <div>
         <h2><a href="{% url 'chirp_detail' chirp.id %}">{{ chirp.content }}</a></h2>
         <h3>{{chirp.user}} at {{chirp.created_at}}</h3>
-        <p>Likes: {{ chirp.likes }}</p>
+        <p>Eggs: {{ chirp.likes }}</p>
         <form method="post" action="">
             {% csrf_token %}
             <input type="hidden" name="chirp_id" value="{{ chirp.id }}">

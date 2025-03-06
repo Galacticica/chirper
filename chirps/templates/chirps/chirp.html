@@ -28,7 +28,7 @@
             <h4>Reply to {{ reply.parent.user }}</h4>
             <h3>{{ reply.content }}</h3>
             <h4>{{ reply.user }} at {{ reply.created_at }}</h4>
-            <p>Likes: {{ reply.likes }}</p>
+            <p>Eggs: {{ reply.likes }}</p>
             <form method="post" action="">
                 {% csrf_token %}
                 <input type="hidden" name="chirp_id" value="{{ reply.id }}">
