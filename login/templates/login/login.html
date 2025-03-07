@@ -1,4 +1,31 @@
 {% extends "base.html" %}
+<!DOCTYPE html>
+<html>
 
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    <title>
+        Log In
+    </title>
+    <link rel="stylesheet" href="{% static 'login_style.css' %}">
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    <div class="container">
+        <h2 class="text-bold text-[#7a0204]">Log In</h2>
+        <form method="post" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ login_form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
 {% block content %}
 {% endblock content %}

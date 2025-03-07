@@ -13,9 +13,9 @@ class HomeView(LoginRequiredMixin, View):
 
     def post(self, request):
         if 'content' in request.POST:
-            self.handle_chirp_post(request)
+            return self.handle_chirp_post(request)
         elif 'chirp_id' in request.POST:
-            self.handle_like_post(request)
+            return self.handle_like_post(request)
         
         return self.render_homepage(request)
 
@@ -26,6 +26,7 @@ class HomeView(LoginRequiredMixin, View):
             chirp.user = request.user  
             chirp.save()
             return redirect('home')
+        return self.render_homepage(request)
 
     def handle_like_post(self, request):
         like_form = LikeForm(request.POST)
@@ -35,6 +36,7 @@ class HomeView(LoginRequiredMixin, View):
             chirp.likes += 1
             chirp.save()
             return redirect('home')
+        return self.render_homepage(request)
 
     def render_homepage(self, request):
         chirps = Chirp.objects.order_by('-created_at')
@@ -57,9 +59,9 @@ class ChirpView(LoginRequiredMixin, View):
 
     def post(self, request, chirp_id):
         if 'content' in request.POST:
-            self.handle_reply_post(request, chirp_id)
+            return self.handle_reply_post(request, chirp_id)
         elif 'chirp_id' in request.POST:
-            self.handle_like_post(request, chirp_id)
+            return self.handle_like_post(request, chirp_id)
         
         return self.render_chirp_detail(request, chirp_id)
 
@@ -72,6 +74,7 @@ class ChirpView(LoginRequiredMixin, View):
             reply.parent = chirp
             reply.save()
             return redirect('chirp_detail', chirp_id=chirp_id)
+        return self.render_chirp_detail(request, chirp_id)
 
     def handle_like_post(self, request, chirp_id):
         like_form = LikeForm(request.POST)
@@ -81,6 +84,7 @@ class ChirpView(LoginRequiredMixin, View):
             chirp_or_reply.likes += 1
             chirp_or_reply.save()
             return redirect('chirp_detail', chirp_id=chirp_id)
+        return self.render_chirp_detail(request, chirp_id)
 
     def render_chirp_detail(self, request, chirp_id):
         chirp = Chirp.objects.get(id=chirp_id)

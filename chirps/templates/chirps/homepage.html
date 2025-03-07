@@ -4,7 +4,7 @@
 
 <head>
     <div
-        class="flex justify-center items-center bg-[#e8e5e4] font-bold text-[#7a0204] outline-2 outline-[#54027a] rounded-md">
+        class="flex justify-center items-center bg-[#e8e5e4] font-bold text-[50px] text-[#7a0204] outline-8 outline-[#54027a] rounded-md m-7">
         Chirper
     </div>
 </head>
@@ -12,28 +12,52 @@
 
 {% block content %}
 
-<body class="flex justify-center items-center outline-solid-10-[#54027a] rounded-md">
+<body class="flex justify-center items-center bg-[#e8e5e4] pl-7 ml-7">
 
+
+    
     <form method="post" action="">
         {% csrf_token %}
-        {{ chirp_form.as_p }}
-        <button type="submit" class="bg-[#7a] text-[#e8e5e40204] text-[#e8e5e4]">Post a Chirp</button>
+        {{ chirp_form.media}}
+        {{ chirp_form.content }}
+        <trix-editor input="{{ chirp_form.content.id_for_label }}"></trix-editor>
+        <div id="char-count" class="text-right text-gray-500">0/255</div>
+        <button type="submit" class="bg-[#7a0204] text-[30px] text-[#e8e5e4]">Post a Chirp</button>
     </form>
 
     {% for chirp in chirps %}
-    <div>
-        <h2><a href="{% url 'chirp_detail' chirp.id %}">{{ chirp.content }}</a></h2>
-        <h3>{{chirp.user}} at {{chirp.created_at}}</h3>
-        <p>Eggs: {{ chirp.likes }}</p>
-        <form method="post" action="">
-            {% csrf_token %}
-            <input type="hidden" name="chirp_id" value="{{ chirp.id }}">
-            <button type="submit" class="bg-[#7a0204] text-[#e8e5e4]">Give egg</button>
-        </form>
-    </div>
+        {% if not chirp.parent %}
+        <div class="flex flex-col justify-center items-center border-3 border-[#54027a] rounded-md w-1/3 p-4 ml-4 mt-7 mb-7">
+            <h2 class="block"><a href="{% url 'chirp_detail' chirp.id %}">{{ chirp.content|safe }}</a></h2>
+            <h3 class="block text-bold">{{chirp.user}} at {{chirp.created_at}}</h3>
+            <p>Eggs: {{ chirp.likes }}</p>
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="chirp_id" value="{{ chirp.id }}">
+                <button type="submit" class="bg-[#7a0204] text-[20px] text-[#e8e5e4]">Give egg</button>
+            </form>
+        </div>
 
+        {% endif %}
 
     {% endfor %}
 
+
+    
+
+    <script class="flex justify-center items-center outline-8 outline-[#54027a] pl-7 ml-7">
+        document.addEventListener('trix-change', function(event) {
+            var editor = event.target;
+            var content = editor.editor.getDocument().toString();
+            var charCount = content.length;
+            var charCountDisplay = document.getElementById('char-count');
+            charCountDisplay.textContent = charCount + '/255';
+
+            if (charCount > 255) {
+                editor.editor.setSelectedRange([255, charCount]);
+                editor.editor.deleteInDirection('forward');
+            }
+        });
+    </script>
 </body>
 {% endblock content %}
