@@ -1,3 +1,12 @@
+"""
+File: urls.py
+Author: Reagan Zierke
+Date: 3/6/2025
+Description: Creates urls for the home page and each individual chirp.
+"""
+
+
+
 from django.urls import path
 from .views import HomeView, ChirpView
 

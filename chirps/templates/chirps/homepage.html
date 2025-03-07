@@ -18,7 +18,6 @@
     
     <form method="post" action="">
         {% csrf_token %}
-        {{ chirp_form.media}}
         {{ chirp_form.content }}
         <trix-editor input="{{ chirp_form.content.id_for_label }}"></trix-editor>
         <div id="char-count" class="text-right text-gray-500">0/255</div>

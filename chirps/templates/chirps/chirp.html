@@ -12,7 +12,7 @@
 {% block content %}
 <body class="flex justify-center items-center outline-solid-10-[#54027a] rounded-md">
     <div>
-        <h2>{{ chirp.content }}</h2>
+        <h2>{{ chirp.content|safe }}</h2>
         <h3>{{ chirp.user }} at {{ chirp.created_at }}</h3>
         <p>Likes: {{ chirp.likes }}</p>
         <form method="post" action="">
@@ -40,11 +40,12 @@
     </div>
 
     <div>
-        <h3>Write a reply:</h3>
         <form method="post" action="">
             {% csrf_token %}
-            {{ reply_form.as_p }}
-            <button type="submit" class="bg-[#7a0204] text-[#e8e5e4]">Reply</button>
+            {{ chirp_form.content }}
+            <trix-editor input="{{ reply_form.content.id_for_label }}"></trix-editor>
+            <div id="char-count" class="text-right text-gray-500">0/255</div>
+            <button type="submit" class="bg-[#7a0204] text-[30px] text-[#e8e5e4]">Write a reply</button>
         </form>
     </div>
 </body>

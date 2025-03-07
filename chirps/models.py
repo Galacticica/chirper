@@ -1,3 +1,11 @@
+"""
+File: models.py
+Author: Reagan Zierke, Aleksa Chambers, Caden Korell
+Date: 3/6/2025
+Description: Creates the chirp and reply models for chirper.
+"""
+
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
